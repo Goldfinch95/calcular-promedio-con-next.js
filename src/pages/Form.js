@@ -54,6 +54,8 @@ export default function Form() {
             Examen Final
             <input
               type="number"
+              max={10}
+              min={0}
               name="finalExamValue" // Asigna un nombre al input
               value={values.finalExamValue}
               onChange={(e) =>
@@ -68,6 +70,8 @@ export default function Form() {
             Parciales
             <input
               type="number"
+              max={10}
+              min={0}
               name="firstPartialValue" // Asigna un nombre al input
               value={values.firstPartialValue}
               onChange={(e) =>
@@ -77,6 +81,8 @@ export default function Form() {
             />
             <input
               type="number"
+              max={10}
+              min={0}
               name="secondPartialValue" // Asigna un nombre al input
               value={values.secondPartialValue}
               onChange={(e) =>
@@ -86,6 +92,8 @@ export default function Form() {
             />
             <input
               type="number"
+              max={10}
+              min={0}
               name="thirdPartialValue" // Asigna un nombre al input
               value={values.thirdPartialValue}
               onChange={(e) =>
@@ -100,6 +108,8 @@ export default function Form() {
             Proyectos
             <input
               type="number"
+              max={10}
+              min={0}
               name="firstProjectValue" // Asigna un nombre al input
               value={values.firstProjectValue}
               onChange={(e) =>
