@@ -1,70 +1,47 @@
 import React, { useState } from "react";
 
+const initialState = {
+  finalExamValue: "",
+  firstPartialValue: "",
+  secondPartialValue: "",
+  thirdPartialValue: "",
+  firstProjectValue: "",
+  secondProjectValue: "",
+};
+
 export default function Form() {
-  const [finalExamValue, setFinalExamValue] = useState("");
-  const [firstPartialValue, setFirstPartialValue] = useState("");
-  const [secondPartialValue, setSecondPartialValue] = useState("");
-  const [thirdPartialValue, setThirdPartialValue] = useState("");
-  const [firstProjectValue, setFirstProjectValue] = useState("");
-  const [secondProjectValue, setSecondProjectValue] = useState("");
+  const [values, setValues] = useState(initialState);
   const [finalNote, setFinalNote] = useState("");
-
-  const handleFinalExamChange = (e) => {
-    setFinalExamValue(e.target.value);
-  };
-
-  const handleFirstPartialChange = (e) => {
-    setFirstPartialValue(e.target.value);
-  };
-
-  const handleSecondPartialChange = (e) => {
-    setSecondPartialValue(e.target.value);
-  };
-  const handleThirdPartialChange = (e) => {
-    setThirdPartialValue(e.target.value);
-  };
-  const handleFirstProjectChange = (e) => {
-    setFirstProjectValue(e.target.value);
-  };
-  const handleSecondProjectChange = (e) => {
-    setSecondProjectValue(e.target.value);
+  const handleValueChange = (key, value) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      [key]: value,
+    }));
   };
 
   const addPartials = (p1, p2, p3) => {
-    const suma = Number(p1) + Number(p2) + Number(p3);
-    return suma;
+    return ((Number(p1) + Number(p2) + Number(p3)) / 3) * 0.55;
   };
 
   const addProjects = (pro1, pro2) => {
-    const suma = Number(pro1) + Number(pro2);
-    return suma;
+    return ((Number(pro1) + Number(pro2)) / 2) * 0.3;
   };
 
   const finalAverage = (finalExam, totalPartial, totalProjects) => {
-    const total =
-      Number(finalExam) + Number(totalPartial) + Number(totalProjects);
-    //console.log(`la suma es de ${total}`);
-    const partialPercentage = (55 / 100) * total;
-    const projectsPercentage = (30 / 100) * total;
-    const examPercentage = (15 / 100) * total;
-    const finalNote =
-      (partialPercentage + projectsPercentage + examPercentage) / 6;
-    return finalNote;
+    return Number(finalExam) * 0.15 + totalPartial + totalProjects;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`la nota del examen final es de ${finalExamValue}`);
-    const totalPartial = addPartials(
-      firstPartialValue,
-      secondPartialValue,
-      thirdPartialValue
+    const finalNote = finalAverage(
+      values.finalExamValue,
+      addPartials(
+        values.firstPartialValue,
+        values.secondPartialValue,
+        values.thirdPartialValue
+      ),
+      addProjects(values.firstProjectValue, values.secondProjectValue)
     );
-    //console.log(`la suma de los parciales es de ${totalPartial}`);
-    const totalProjects = addProjects(firstProjectValue, secondProjectValue);
-    //console.log(`la suma de los proyectos es de ${totalProjects}`);
-    const finalNote = finalAverage(finalExamValue, totalPartial, totalProjects);
-    // console.log(` la nota final es de ${finalNote.toFixed(2)}`);
     setFinalNote(finalNote.toFixed(2));
   };
 
@@ -78,8 +55,10 @@ export default function Form() {
             <input
               type="number"
               name="finalExamValue" // Asigna un nombre al input
-              value={finalExamValue}
-              onChange={handleFinalExamChange}
+              value={values.finalExamValue}
+              onChange={(e) =>
+                handleValueChange("finalExamValue", e.target.value)
+              }
               placeholder="Inserte nota"
             />
           </label>
@@ -90,22 +69,28 @@ export default function Form() {
             <input
               type="number"
               name="firstPartialValue" // Asigna un nombre al input
-              value={firstPartialValue}
-              onChange={handleFirstPartialChange}
+              value={values.firstPartialValue}
+              onChange={(e) =>
+                handleValueChange("firstPartialValue", e.target.value)
+              }
               placeholder="Inserte nota"
             />
             <input
               type="number"
               name="secondPartialValue" // Asigna un nombre al input
-              value={secondPartialValue}
-              onChange={handleSecondPartialChange}
+              value={values.secondPartialValue}
+              onChange={(e) =>
+                handleValueChange("secondPartialValue", e.target.value)
+              }
               placeholder="Inserte nota"
             />
             <input
               type="number"
               name="thirdPartialValue" // Asigna un nombre al input
-              value={thirdPartialValue}
-              onChange={handleThirdPartialChange}
+              value={values.thirdPartialValue}
+              onChange={(e) =>
+                handleValueChange("thirdPartialValue", e.target.value)
+              }
               placeholder="Inserte nota"
             />
           </label>
@@ -116,15 +101,19 @@ export default function Form() {
             <input
               type="number"
               name="firstProjectValue" // Asigna un nombre al input
-              value={firstProjectValue}
-              onChange={handleFirstProjectChange}
+              value={values.firstProjectValue}
+              onChange={(e) =>
+                handleValueChange("firstProjectValue", e.target.value)
+              }
               placeholder="Inserte nota"
             />
             <input
               type="number"
               name="secondPartialValue" // Asigna un nombre al input
-              value={secondProjectValue}
-              onChange={handleSecondProjectChange}
+              value={values.secondProjectValue}
+              onChange={(e) =>
+                handleValueChange("secondProjectValue", e.target.value)
+              }
               placeholder="Inserte nota"
             />
           </label>
