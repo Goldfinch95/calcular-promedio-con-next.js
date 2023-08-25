@@ -1,4 +1,5 @@
 import Form from "./Form";
+import img from "../styles/background.jpg";
 
 const promedioFinal = (examenFinal, totalParciales, totalProyectos) => {
   const total = examenFinal + totalParciales + totalProyectos;
@@ -18,8 +19,14 @@ export default function HomePage() {
   }
 
   return (
-    <div className="container__form">
-      <Form />
-    </div>
+    <body
+      style={{
+        backgroundImage: `url(${img.src})`,
+      }}
+    >
+      <div className="container__form">
+        <Form />
+      </div>
+    </body>
   );
 }
